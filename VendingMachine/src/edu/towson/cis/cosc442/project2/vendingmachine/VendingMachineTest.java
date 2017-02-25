@@ -92,11 +92,13 @@ public class VendingMachineTest {
 
 	@Test
 	public void testReturnChange() {
+		vm.insertMoney(10.00);
+		assertEquals(10.00,vm.returnChange(),0.0001);
 		vi = new VendingMachineItem("Hummus",50);
+		vm.insertMoney(50.00);
 		vm.addItem(vi, "B");
-		vm.insertMoney(123.75);
 		vm.makePurchase("B");
-		assertEquals(73.75,vm.returnChange(),0.0001);
+		assertEquals(0.00,vm.returnChange(),0.0001);
 	}
 
 }

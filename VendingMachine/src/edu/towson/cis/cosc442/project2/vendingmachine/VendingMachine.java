@@ -51,6 +51,7 @@ public class VendingMachine {
 	// Array items in the vending machine
 	private VendingMachineItem[] itemArray;
 	
+	//Error message if the price contains more than two decimal places
 	private final static String PRICE_DECIMAL_GREATER_THAN_2_DECIMAL_PLACES = "Price cannot be contain more than two decimal places";
 	
 
@@ -117,9 +118,13 @@ public class VendingMachine {
 	 * @param code The code for the the slot in the vending machine eg. "A"
 	 * @return The item occupying the slot with the given code
 	 * @throws VendingMachineException if the code is invalid
+	 * @throws VendingMachineException if the slot is empty
 	 */
 	protected VendingMachineItem getItem(String code) throws VendingMachineException {
 		int slotIndex = getSlotIndex(code);
+		if(itemArray[slotIndex] == null){
+			throw new VendingMachineException(VendingMachine.IS_EMPTY_MESSAGE);
+		}
 		return itemArray[slotIndex];
 	}
 	
@@ -148,11 +153,11 @@ public class VendingMachine {
 	 * @throws VendingMachineException Throws a VendingMachineException if the amount is < 0 
 	 */
 	public void insertMoney(double amount) throws VendingMachineException {
-		String priceValidator= ""+amount;
-		String [] priceValidatorArray = priceValidator.split("\\.");
+		String priceValidator= ""+amount;//converts the amount to a string
+		String [] priceValidatorArray = priceValidator.split("\\.");//places the string with and array
 		if( amount < 0 ){
 			throw new VendingMachineException(VendingMachine.INVALID_AMOUNT_MESSAGE);
-		}else if(priceValidatorArray[1].length() > 2){
+		}else if(priceValidatorArray[1].length() > 2){//checks if decimals places is greater than 2
 			throw new VendingMachineException(VendingMachine.PRICE_DECIMAL_GREATER_THAN_2_DECIMAL_PLACES);
 		}		
 		this.balance += amount;

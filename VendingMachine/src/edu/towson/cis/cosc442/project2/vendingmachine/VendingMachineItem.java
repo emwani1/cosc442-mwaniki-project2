@@ -13,6 +13,8 @@ public class VendingMachineItem {
 
 	// Exception message for when the price is less than zero
 	private final static String PRICE_LESS_THAN_ZERO_MESSAGE = "Price cannot be less than zero";
+	
+	//Exception message when the price contains more than two decimal places
 	private final static String PRICE_DECIMAL_GREATER_THAN_2_DECIMAL_PLACES = "Price cannot be contain more than two decimal places";
 	
 	
@@ -26,8 +28,8 @@ public class VendingMachineItem {
 	 */
 	public VendingMachineItem( String name, double price ) throws VendingMachineException {
 		this.name = name;
-		String priceValidator= ""+price;
-		String [] priceValidatorArray = priceValidator.split("\\.");
+		String priceValidator= ""+price;//converts price to a string
+		String [] priceValidatorArray = priceValidator.split("\\.");//places the string to an array
 		if( price < 0) {
 			throw new VendingMachineException(PRICE_LESS_THAN_ZERO_MESSAGE);
 			} 
