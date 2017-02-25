@@ -44,9 +44,10 @@ public class VendingMachineTest {
 	 */
 	@Test
 	public void testAddItem() {
-		vi = new VendingMachineItem("Cookies",90);
+		vi = new VendingMachineItem("Cookies",.01);
 		vm.addItem(vi, "A");
-		assertEquals(vi.getName(),vm.getItem("A").getName());
+		assertEquals("Cookies",vm.getItem("A").getName());
+		assertEquals(.01,vm.getItem("A").getPrice(),0.001);
 	}
 	/**
 	 * Test for the removeItem() method of the {@link Vending Machine} class.

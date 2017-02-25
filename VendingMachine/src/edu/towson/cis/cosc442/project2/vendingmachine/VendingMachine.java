@@ -50,6 +50,9 @@ public class VendingMachine {
 
 	// Array items in the vending machine
 	private VendingMachineItem[] itemArray;
+	
+	private final static String PRICE_DECIMAL_GREATER_THAN_2_DECIMAL_PLACES = "Price cannot be contain more than two decimal places";
+	
 
 	/**
 	 * Default constructor for the vending machine. It sets all the entries in
@@ -145,8 +148,13 @@ public class VendingMachine {
 	 * @throws VendingMachineException Throws a VendingMachineException if the amount is < 0 
 	 */
 	public void insertMoney(double amount) throws VendingMachineException {
-		if( amount < 0 )
+		String priceValidator= ""+amount;
+		String [] priceValidatorArray = priceValidator.split("\\.");
+		if( amount < 0 ){
 			throw new VendingMachineException(VendingMachine.INVALID_AMOUNT_MESSAGE);
+		}else if(priceValidatorArray[1].length() > 2){
+			throw new VendingMachineException(VendingMachine.PRICE_DECIMAL_GREATER_THAN_2_DECIMAL_PLACES);
+		}		
 		this.balance += amount;
 	}
 
