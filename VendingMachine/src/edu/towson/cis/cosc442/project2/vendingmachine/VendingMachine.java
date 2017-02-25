@@ -199,9 +199,14 @@ public class VendingMachine {
 	 * Postcondition: balance = 0
 	 * @return The amount of change in the machine
 	 */
-	public double returnChange() {
-		double change = this.balance;
-		this.balance = 0;
+	public double returnChange() throws VendingMachineException {
+		double change = 0;
+		if(this.balance >= 0){
+			change = this.balance;
+			this.balance = INITIAL_BALANCE;
+		}else{
+			throw new VendingMachineException(INVALID_AMOUNT_MESSAGE);
+		}
 		return change;
 	}
 }
